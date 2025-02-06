@@ -1,8 +1,10 @@
+import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
 
 Future<List<String>> getImages() async {
-  var dir = Directory('images/');
+  final directory = await getApplicationDocumentsDirectory();
+  var dir = Directory('${directory.parent.path}/images');
   List<String> imageUrls2=[];
   try {
     var dirList = dir.list();
