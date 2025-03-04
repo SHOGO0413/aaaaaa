@@ -2,6 +2,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'db_data.freezed.dart';
 
+/// 植物名概要データ
+@freezed
+class PlantsNameSummary with _$PlantsNameSummary {
+  const factory PlantsNameSummary({
+    /// 植物名ID
+    required PlantsId id,
+
+    /// 植物名
+    required String name,
+
+    /// 植物単位のメモ
+    required String memo,
+
+    /// 植物の数(植物未登録時は0)
+    required int PlantsCount,
+  }) = _PlantsNameSummary;
+}
+
 /// 植物名の概要データリスト
 class PlantsNameSummaryList {
   PlantsNameSummaryList(this._list);
@@ -14,7 +32,7 @@ class PlantsNameSummaryList {
   /// リストの要素数
   int get length => _list.length;
 
-  /// してインデックスの要素を取得
+  /// インデックスの要素を取得
   PlantsNameSummary getElementAt(int index) => _list[index];
 
   @override
@@ -23,21 +41,6 @@ class PlantsNameSummaryList {
   }
 }
 
-/// 植物名概要データ
-@freezed
-class PlantsNameSummary with _$PlantsNameSummary {
-  const factory PlantsNameSummary({
-    /// 植物名ID
-    required PlantsId id,
-
-    /// 植物名
-
-    required String name,
-
-    /// 植物の数(植物未登録時は0)
-    required int PlantsCount,
-  }) = _PlantsNameSummary;
-}
 
 /// 植物名詳細データ
 @freezed
@@ -48,6 +51,8 @@ class PlantsNameDetail with _$PlantsNameDetail {
 
     /// 植物名
     required String name,
+
+    required String memo,
 
     /// 植物日付リスト
     required PlantsDateList dateList,
@@ -63,45 +68,6 @@ class PlantsId with _$PlantsId {
   }) = _PlantsId;
 }
 
-/// 植物日付リスト
-class PlantsDateList {
-  PlantsDateList(this._list);
-
-  final List<PlantsDate> _list;
-
-  /// 要素数
-  int get length => _list.length;
-
-  PlantsDate getElementAt(int index) => _list[index];
-}
-
-/// 植物日付概要データ
-@freezed
-class PlantsDateSummary with _$PlantsDateSummary {
-  const factory PlantsDateSummary({
-    /// 植物ID
-    required PlantsDateId id,
-    /// 植物日付日付
-    required PlantsDateDate? date,
-    /// 植物日付数
-    required int PlantsDateCount,
-  }) = _PlantsDateSummary;
-}
-
-/// 植物日付詳細データ
-@freezed
-class PlantsDateDetail with _$PlantsDateDetail {
-  const factory PlantsDateDetail({
-    /// 植物日付ID
-    required PlantsDateId id,
-
-    /// 植物日付日付
-    required PlantsDateDate? date,
-
-    /// 写真一覧
-    required PlantsPhotoList photoList,
-  }) = _PlantsDateDetail;
-}
 
 /// 植物日付データ
 @freezed
@@ -113,7 +79,22 @@ class PlantsDate with _$PlantsDate {
     /// 植物日付日付
     required PlantsDateDate? date,
 
+    /// 植物日付メモ
+    required String dateMemo,
+
   }) = _PlantsDate;
+}
+
+/// 植物日付リスト
+class PlantsDateList {
+  PlantsDateList(this._list);
+
+  final List<PlantsDate> _list;
+
+  /// 要素数
+  int get length => _list.length;
+
+  PlantsDate getElementAt(int index) => _list[index];
 }
 
 /// 植物日付ID
@@ -139,7 +120,7 @@ class PlantsDateDate with _$PlantsDateDate {
     required int dayOfMonth,
   }) = _PlantsDateDate;
 
-  /// 買い物メモ日付にパースする。
+  /// パースする。
   static PlantsDateDate? parse(String? value) {
     if (value == null) return null;
 
@@ -160,7 +141,7 @@ class PlantsDateDate with _$PlantsDateDate {
     return '$year-$month-$dayOfMonth';
   }
 }
-
+/*
 /// 植物写真リスト
 class PlantsPhotoList {
   PlantsPhotoList(this._list);
@@ -189,8 +170,8 @@ class PlantsPhoto with _$PlantsPhoto {
     /// 植物写真ID
     required PlantsPhotoId id,
 
-    /// 植物写真url
-    required String url,
+    /// 植物写真path
+    required String path,
   }) = _PlantsPhoto;
 }
 
@@ -202,3 +183,4 @@ class PlantsPhotoId with _$PlantsPhotoId {
     required int id,
   }) = _PlantsPhotoId;
 }
+*/

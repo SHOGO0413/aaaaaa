@@ -4,6 +4,10 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:plants_management_app/list/list.dart';
 import 'package:plants_management_app/plantsdetail/Utils.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as path;
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class PlantsDetailScreen extends StatefulWidget {
   const PlantsDetailScreen({super.key});
@@ -21,6 +25,24 @@ class _PlantsDetailScreenState extends State<PlantsDetailScreen> {
     'https://cdn.pixabay.com/photo/2017/06/09/16/39/carrots-2387394_1280.jpg',
     'https://th.bing.com/th/id/OIP.xQv2h1WqgbCY1v32XE7D7wHaE9?w=215&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7'
   ];
+
+  Future<void> _copyAssetImage() async {
+    final byteData = await rootBundle.load('assets/images/agave.jpg');
+
+    final file = await _writeToFile(byteData, 'agave.jpg');
+
+    print('Image copied to ${file.path}');
+  }
+
+  Future<File> _writeToFile(ByteData data, String fileName) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = path.join(directory.path, fileName);
+    final file = File(filePath);
+
+    await file.writeAsBytes(data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+
+    return file;
+  }
 
   @override
   void initiate() {
@@ -52,7 +74,7 @@ class _PlantsDetailScreenState extends State<PlantsDetailScreen> {
                   padding: EdgeInsets.all(8.0),
                   itemCount: data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return PhotoViewContainer(date: "n月m日", imageUrls: data);
+                    return PhotoViewContainer(date: "n月m日", imageUrls: imageUrls);
                   },
                 ); // データ取得完了時
               } else {

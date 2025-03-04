@@ -1,11 +1,10 @@
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-
 Future<List<String>> getImages() async {
   final directory = await getApplicationDocumentsDirectory();
-  var dir = Directory('${directory.parent.path}/images');
-  List<String> imageUrls2=[];
+  var dir = Directory('${directory.path}');
+  List<String> imageUrls2 = [];
   try {
     var dirList = dir.list();
     await for (final FileSystemEntity f in dirList) {
@@ -22,7 +21,23 @@ Future<List<String>> getImages() async {
   return imageUrls2;
 }
 
+Future<void> createPlantsAssets() async {
+  final directory = await getApplicationDocumentsDirectory();
+  final dirPath = '${directory.path}/plants_assets';
+  final newDir = Directory(dirPath);
 
+  try {
+    if (await newDir.exists()) {
+      print('Directory already exists');
+    } else {
+      await newDir.create();
+      print('Directory created successfully');
+    }
+  } catch (e) {
+    print('Error creating directory: $e');
+    print('Error creating directory');
+  }
+}
 
 ///return Scaffold(
 //       appBar: AppBar(

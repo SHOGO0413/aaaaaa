@@ -9,6 +9,9 @@ abstract final class PlantsNameTbl {
   /// 植物名(必須フィールド)
   static const String plantsName = "plants_name";
 
+  ///　植物メモ(必須フィールド)
+  static const String plantsMemo = "plants_memo";
+
   /// CREATE TABLE文
   /// このSQLステートメントを実行すると、以下の操作が行われる。
   /// 1. "plants_name_tbl"という名前のテーブルを作成
@@ -17,7 +20,8 @@ abstract final class PlantsNameTbl {
   static const String createTableStatement = ""
       "CREATE TABLE $tableName ( "
       "$plantsID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
-      "$plantsName TEXT NOT NULL "
+      "$plantsName TEXT NOT NULL,"
+      "$plantsMemo TEXT NOT NULL"
       ");";
 
   /// CREATE INDEX文
@@ -41,7 +45,10 @@ abstract final class PlantsDateTbl {
   static const String dateID = "plants_date_id";
 
   /// 植物日付(必須フィールド)
-  static const String? date = "plants_date";
+  static const String date = "plants_date";
+
+  /// 植物日付メモ(必須フィールぢ)
+  static const String dateMemo = "plants_date_memo";
 
   /// CREATE TABLE文
   /// このSQLステートメントを実行すると、以下の操作が行われる。
@@ -55,6 +62,7 @@ abstract final class PlantsDateTbl {
       "$dateID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "
       "$plantsID TEXT NOT NULL,"
       "$date TEXT NULL,"
+      "$dateMemo TEXT NOT NULL,"
       "FOREIGN KEY ($plantsID) REFERENCES "
       "${PlantsNameTbl.tableName}(${PlantsNameTbl.plantsID}) "
       "ON DELETE RESTRICT ON UPDATE NO ACTION"
@@ -76,7 +84,7 @@ abstract final class PlantsDateTbl {
       "CREATE UNIQUE INDEX plants_date_tbl_plants_name_id_index "
       "ON $tableName($plantsID);";
 }
-
+/*
 /// 植物写真テーブル
 abstract final class PlantsPhotoTbl {
   /// テーブル名
@@ -91,14 +99,14 @@ abstract final class PlantsPhotoTbl {
   /// 植物写真ID(主キー、自動増分)
   static const String photoID = "plants_photo_id";
 
-  ///　植物写真url(必須フィールド)
-  static const String photoUrl = "plants_photo_url";
+  ///　植物写真path(必須フィールド)
+  static const String photoPath = "plants_photo_path";
 
   /// CREATE TABLE文
   /// このSQLステートメントを実行すると、以下の操作が行われる。
   /// 1. "plants_photo_tbl"という名前のテーブルを作成
   /// 2. 整数型の"plants_photo_id"を主キーとして設定(自動増分)
-  /// 3. 必須のテキストフィールド"plants_photo_url"を追加
+  /// 3. 必須のテキストフィールド"plants_photo_path"を追加
   /// 4. "plants_name_id"を外部キーとして設定し、PlantsNameTblと関連付け
   /// 5. "plants_date_id"を外部キーとして設定し、PlantsDateTblと関連付け
   /// 5. 外部キー制約を設定(削除時は制限、更新時は何もしない)
@@ -107,7 +115,7 @@ abstract final class PlantsPhotoTbl {
       "$photoID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "
       "$plantsID TEXT NOT NULL, "
       "$dateID TEXT NOT NULL, "
-      "$photoUrl TEXT NOT NULL, "
+      "$photoPath TEXT NOT NULL, "
       "FOREIGN KEY ($plantsID) REFERENCES "
       "${PlantsNameTbl.tableName}(${PlantsNameTbl.plantsID}) "
       "ON DELETE RESTRICT ON UPDATE NO ACTION, "
@@ -141,3 +149,4 @@ abstract final class PlantsPhotoTbl {
       "CREATE UNIQUE INDEX plants_photo_tbl_plants_photo_id_index "
       "ON $tableName($photoID);";
 }
+*/

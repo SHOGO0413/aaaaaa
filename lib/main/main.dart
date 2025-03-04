@@ -4,7 +4,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:plants_management_app/db/plants_db.dart';
 import 'package:plants_management_app/list/list.dart';
 import 'package:plants_management_app/list/listplants.dart';
+import 'package:plants_management_app/plantsdetail/Utils.dart';
 import 'package:plants_management_app/plantsdetail/plants_detail_screen.dart';
+import 'package:plants_management_app/tmp/seedir.dart';
 
 Future<void> main() async {
   //  日本語ロケールのフォーマッタを初期化する。
@@ -13,6 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // ここで初期化。
   await PlantsDb.setupDatabase();
+  await createPlantsAssets();
 
   runApp(const MyApp());
 }
@@ -72,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PlantsDetailScreen()));
+                          builder: (context) => DirectoryStructureScreen()));
                 },
               );
             }),
